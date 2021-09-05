@@ -5,27 +5,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RelatorioServiceImpl implements RelatorioService {
 
-    //@Autowired
-
-
     @Override
-    public List<Hospital> getHospitaisSuperLotados() {
-
-        return null;
+    public float calculaPorcentagemSuperLotados(Map<Long, Integer> hospitais) {
+        float quantidadeSuperLotados = 0;
+        for (Long cnpj : hospitais.keySet()) {
+            if(hospitais.get(cnpj)>90) {
+                quantidadeSuperLotados+=1;
+            }
+        }
+        if(quantidadeSuperLotados>0) return (quantidadeSuperLotados/hospitais.keySet().size())*100;
+        else return 0;
     }
 
     @Override
-    public List<Hospital> getHospitaisNaoSuperLotados() {
-        return null;
-    }
-
-    @Override
-    public Integer getMediaRecursos(String recurso) {
-        return null;
+    public float calculaPorcentagemNaoSuperLotados(Map<Long, Integer> hospitais) {
+        float quantidadeNaoSuperLotados = 0;
+        for (Long cnpj : hospitais.keySet()) {
+            if(hospitais.get(cnpj)<90) {
+                quantidadeNaoSuperLotados+=1;
+            }
+        }
+        if(quantidadeNaoSuperLotados>0)return (quantidadeNaoSuperLotados/hospitais.keySet().size())*100;
+        else return 0;
     }
 
     @Override

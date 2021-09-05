@@ -3,14 +3,13 @@ package com.bruno.pandemiccombataidsystem.service;
 import com.bruno.pandemiccombataidsystem.model.Hospital;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RelatorioService {
 
-    public List<Hospital> getHospitaisSuperLotados();
+    public float calculaPorcentagemSuperLotados(Map<Long, Integer> hospitals);
 
-    public List<Hospital> getHospitaisNaoSuperLotados();
-
-    public Integer getMediaRecursos(String recurso);
+    public float calculaPorcentagemNaoSuperLotados(Map<Long, Integer> hospitals);
 
     public Hospital getHospitalMaisTempoSuperLotado();
 

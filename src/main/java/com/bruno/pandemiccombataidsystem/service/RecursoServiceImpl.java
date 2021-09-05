@@ -74,6 +74,74 @@ public class RecursoServiceImpl implements RecursoService {
         return trocaRealizada;
     }
 
+    @Override
+    public Double mediaRecurso(String recurso) {
+        List<Recurso> listaGeral = recursosRepository.findAll();
+        if(listaGeral.size()==0) return Double.valueOf(0);
+        double montante = 0;
+
+        switch (recurso.toLowerCase().strip()) {
+            case "medico":
+                montante += filtraRecursoMedico(listaGeral);
+                break;
+            case "enfermeiro":
+                montante += filtraRecursoEnfermeiro(listaGeral);
+                break;
+            case "respirador":
+                montante += filtraRecursoRespirador(listaGeral);
+                break;
+            case "ambulancia":
+                montante += filtraRecursoAmbulancia(listaGeral);
+                break;
+            case "tomografo":
+                montante += filtraRecursoTomografo(listaGeral);
+                break;
+            default:
+                return Double.valueOf(0);
+        }
+        return (montante/(double) listaGeral.size());
+    }
+
+    private double filtraRecursoTomografo(List<Recurso> lista) {
+        double montante=0;
+        for (Recurso recurso: lista) {
+            montante+=recurso.getQuantidadeTomografos();
+        }
+        return montante;
+    }
+
+    private double filtraRecursoAmbulancia(List<Recurso> lista) {
+        double montante=0;
+        for (Recurso recurso: lista) {
+            montante+=recurso.getQuantidadeAmbulancias();
+        }
+        return montante;
+    }
+
+    private double filtraRecursoRespirador(List<Recurso> lista) {
+        double montante=0;
+        for (Recurso recurso: lista) {
+            montante+=recurso.getQuantidadeRespiradores();
+        }
+        return montante;
+    }
+
+    private double filtraRecursoEnfermeiro(List<Recurso> lista) {
+        double montante=0;
+        for (Recurso recurso: lista) {
+            montante+=recurso.getQuantidadeEnfermeiros();
+        }
+        return montante;
+    }
+
+    private double filtraRecursoMedico(List<Recurso> lista) {
+        double montante=0;
+        for (Recurso recurso: lista) {
+            montante+=recurso.getQuantidadeMedicos();
+        }
+        return montante;
+    }
+
     private int getTotalPontosForm(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO) {
         return formularioTrocaRecursosDTO.getQuantidadeAmbulancias() * PONTUACAO_AMBULANCIA
                 + formularioTrocaRecursosDTO.getQuantidadeMedicos() * PONTUACAO_MEDICO
