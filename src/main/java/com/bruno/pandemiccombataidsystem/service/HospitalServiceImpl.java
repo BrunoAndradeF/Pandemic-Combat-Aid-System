@@ -6,7 +6,9 @@ import com.bruno.pandemiccombataidsystem.repository.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -33,6 +35,15 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public List<Hospital> listaHospitais() {
         return hospitalRepository.findAll();
+    }
+
+    @Override
+    public Map<Long, Integer> listaOcupacoesHospitais() {
+        Map<Long, Integer> colecaoOcupacoes = new HashMap<>();
+        for (Hospital hospital : listaHospitais()) {
+            colecaoOcupacoes.put(hospital.getCnpj(), hospital.getPercentualOcupacao());
+        }
+        return colecaoOcupacoes;
     }
 
     @Override

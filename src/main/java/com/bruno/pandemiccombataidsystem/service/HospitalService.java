@@ -4,6 +4,7 @@ import com.bruno.pandemiccombataidsystem.DTO.HospitalDTO;
 import com.bruno.pandemiccombataidsystem.model.Hospital;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface HospitalService {
@@ -19,4 +20,7 @@ public interface HospitalService {
     public Hospital atualizaPercentual(Hospital hospital, Integer percentualOcupacao);
 
     public List<Hospital> listaHospitais();
+
+    public Map<Long, Integer> listaOcupacoesHospitais();
+
 }

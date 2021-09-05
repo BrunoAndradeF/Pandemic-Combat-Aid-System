@@ -4,6 +4,7 @@ import com.bruno.pandemiccombataidsystem.model.Hospital;
 import com.bruno.pandemiccombataidsystem.model.Recurso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RecursosRepository extends JpaRepository<Recurso, Long> {

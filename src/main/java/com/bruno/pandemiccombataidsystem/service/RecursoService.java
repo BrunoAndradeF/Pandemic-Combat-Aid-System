@@ -20,4 +20,6 @@ public interface RecursoService {
     public List<Recurso> listaRecursos();
 
     public boolean trocaRecursos(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO1, Integer percentual1, FormularioTrocaRecursosDTO formularioTrocaRecursosDTO2, Integer percentual2);
+
+    public Double mediaRecurso(String recurso);
 }
