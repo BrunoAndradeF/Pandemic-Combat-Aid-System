@@ -1,7 +1,6 @@
 package com.bruno.pandemiccombataidsystem.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -9,7 +8,7 @@ public class Recurso {
 
     @Id
     /**
-     * cnpj desse hospital
+     * chave primaria e cnpj do hospital que possui os recursos
      */
     private long cnpj;
     /**
