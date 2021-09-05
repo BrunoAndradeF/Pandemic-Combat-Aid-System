@@ -10,17 +10,32 @@ import javax.persistence.Id;
 public class Hospital {
 
     @Id
+    /**
+     * chave primaria do hospital, o seu cpf
+     */
     private long cnpj;
 
     @NotNull
+    /**
+     * nome do hospital
+     */
     private String nome;
 
     @NotNull
+    /**
+     * endereco do hospital
+     */
     private String endereco;
 
+    /**
+     * localizacao do hospital
+     */
     private String localizacao;
 
     @NotNull
+    /**
+     * percentual de ocupacao
+     */
     private Integer percentualOcupacao;
 
     public Hospital(long cnpj, String nome, String endereco, String localizacao,Integer percentualOcupacao) {

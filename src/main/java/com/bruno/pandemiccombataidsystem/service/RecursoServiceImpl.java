@@ -23,21 +23,33 @@ public class RecursoServiceImpl implements RecursoService {
     RecursosRepository recursosRepository;
 
     @Override
+    /**
+     * retorna a entidade Recurso associada ao hospital com o cnpj passado como parametro
+     */
     public Optional<Recurso> getRecursoByCNPJ(long cnpj) {
         return recursosRepository.findByCnpj(cnpj);
     }
 
     @Override
+    /**
+     * salva a entidade Recurso passada como parametro, no repositorio
+     */
     public void salvaRegistroRecurso(Recurso recurso) {
         recursosRepository.save(recurso);
     }
 
     @Override
+    /**
+     * apaga a entidade recurso passado como parametro, do repositorio
+     */
     public void apagaRegistroRecurso(Recurso recurso) {
         recursosRepository.delete(recurso);
     }
 
     @Override
+    /**
+     * Cria e retorna uma entidade recurso
+     */
     public Recurso criaRecurso(HospitalDTO hospitalDTO) {
         return new Recurso(hospitalDTO.getCnpj(), hospitalDTO.getQuantidadeMedicos(),
                 hospitalDTO.getQuantidadeRespiradores(), hospitalDTO.getQuantidadeTomografos(),
@@ -45,11 +57,17 @@ public class RecursoServiceImpl implements RecursoService {
     }
 
     @Override
+    /**
+     * lista todas as entidades Recurso cadastradas
+     */
     public List<Recurso> listaRecursos() {
         return recursosRepository.findAll();
     }
 
     @Override
+    /**
+     * troca recursos oferecidos entre os hospitais passados como parametro
+     */
     public boolean trocaRecursos(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO1, Integer percentual1,
                                    FormularioTrocaRecursosDTO formularioTrocaRecursosDTO2, Integer percentual2) {
         int totalPontos1 = getTotalPontosForm(formularioTrocaRecursosDTO1);
@@ -75,6 +93,9 @@ public class RecursoServiceImpl implements RecursoService {
     }
 
     @Override
+    /**
+     * calcula e retorna a media entre os hospitais de certo recurso
+     */
     public Double mediaRecurso(String recurso) {
         List<Recurso> listaGeral = recursosRepository.findAll();
         if(listaGeral.size()==0) return Double.valueOf(0);
@@ -102,6 +123,11 @@ public class RecursoServiceImpl implements RecursoService {
         return (montante/(double) listaGeral.size());
     }
 
+    /**
+     * calcula o montante de tomografos entre todos os hospitais
+     * @param lista lista com todos recursos cadastrados
+     * @return soma de todos os tomografos cadastrados
+     */
     private double filtraRecursoTomografo(List<Recurso> lista) {
         double montante=0;
         for (Recurso recurso: lista) {
@@ -110,6 +136,11 @@ public class RecursoServiceImpl implements RecursoService {
         return montante;
     }
 
+    /**
+     * calcula o montante de ambulancias entre todos os hospitais
+     * @param lista lista com todos recursos cadastrados
+     * @return soma de todos os ambulancias cadastrados
+     */
     private double filtraRecursoAmbulancia(List<Recurso> lista) {
         double montante=0;
         for (Recurso recurso: lista) {
@@ -118,6 +149,11 @@ public class RecursoServiceImpl implements RecursoService {
         return montante;
     }
 
+    /**
+     * calcula o montante de respiradores entre todos os hospitais
+     * @param lista lista com todos recursos cadastrados
+     * @return soma de todos os respiradores cadastrados
+     */
     private double filtraRecursoRespirador(List<Recurso> lista) {
         double montante=0;
         for (Recurso recurso: lista) {
@@ -126,6 +162,11 @@ public class RecursoServiceImpl implements RecursoService {
         return montante;
     }
 
+    /**
+     * calcula o montante de enfermeiros entre todos os hospitais
+     * @param lista lista com todos recursos cadastrados
+     * @return soma de todos os enfermeiros cadastrados
+     */
     private double filtraRecursoEnfermeiro(List<Recurso> lista) {
         double montante=0;
         for (Recurso recurso: lista) {
@@ -134,6 +175,11 @@ public class RecursoServiceImpl implements RecursoService {
         return montante;
     }
 
+    /**
+     * calcula o montante de medicos entre todos os hospitais
+     * @param lista lista com todos recursos cadastrados
+     * @return soma de todos os medicos cadastrados
+     */
     private double filtraRecursoMedico(List<Recurso> lista) {
         double montante=0;
         for (Recurso recurso: lista) {
@@ -142,6 +188,11 @@ public class RecursoServiceImpl implements RecursoService {
         return montante;
     }
 
+    /**
+     * calcula o total de pontos de um formulario para troca de recursos
+     * @param formularioTrocaRecursosDTO formulario de troca de recursos
+     * @return total de pontos no formulario
+     */
     private int getTotalPontosForm(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO) {
         return formularioTrocaRecursosDTO.getQuantidadeAmbulancias() * PONTUACAO_AMBULANCIA
                 + formularioTrocaRecursosDTO.getQuantidadeMedicos() * PONTUACAO_MEDICO
@@ -150,12 +201,22 @@ public class RecursoServiceImpl implements RecursoService {
                 + formularioTrocaRecursosDTO.getQuantidadeEnfermeiros() * PONTUACAO_ENFERMEIRO;
     }
 
+    /**
+     * realiza troca entre dos hospitais
+     * @param formularioTrocaRecursosDTO1 formulario de troca do hospital 1
+     * @param formularioTrocaRecursosDTO2 formulario de troca do hospital 2
+     */
     private void realizaTroca(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO1, FormularioTrocaRecursosDTO formularioTrocaRecursosDTO2) {
 
         atualizaRecursos(formularioTrocaRecursosDTO1 ,formularioTrocaRecursosDTO2);
         atualizaRecursos(formularioTrocaRecursosDTO2, formularioTrocaRecursosDTO1);
     }
 
+    /**
+     * atualiza os recursos de um hospital, removendo o oferecido na troca e adicionando ofertado
+     * @param formularioTrocaRecursosDTO1 formulario de troca do proprio hospital
+     * @param formularioTrocaRecursosDTO2 formulario de troca de outro hospital
+     */
     private void atualizaRecursos(FormularioTrocaRecursosDTO formularioTrocaRecursosDTO1, FormularioTrocaRecursosDTO formularioTrocaRecursosDTO2) {
         Recurso recursos1 = recursosRepository.findByCnpj(formularioTrocaRecursosDTO1.getCnpj()).get();
         Recurso recursos2 = recursosRepository.findByCnpj(formularioTrocaRecursosDTO2.getCnpj()).get();

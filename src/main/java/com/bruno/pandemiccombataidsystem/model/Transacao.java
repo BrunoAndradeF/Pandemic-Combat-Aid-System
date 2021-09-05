@@ -12,22 +12,62 @@ public class Transacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * identificador da transacao, numero gerado
+     */
     private long id;
+    /**
+     * cnjp de um dos dois hospitais da relacao de troca
+     */
     private long cnpjHospital1;
+    /**
+     * cnjp de um dos dois hospitais da relacao de troca
+     */
     private long cnpjHospital2;
 
     //recursos oferecidos pelo hospital 1
+    /**
+     * quantidade de medicos oferecidos pelo hospital 1
+     */
     private Integer quantidadeMedicos1;
+    /**
+     * quantidade de enfermeiros oferecidos pelo hospital 1
+     */
     private Integer quantidaEnfermeiros1;
+    /**
+     * quantidade de respiradores oferecidos pelo hospital 1
+     */
     private Integer quantidadeRespiradores1;
+    /**
+     * quantidade de tomografos oferecidos pelo hospital 1
+     */
     private Integer quantidadeTomografos1;
+    /**
+     * quantidade de ambulancias oferecidos pelo hospital 1
+     */
     private Integer quantidadeAmbulancias1;
 
     //recursos oferecidos pelo hospital 2
+
+    /**
+     * quantidade de medicos oferecidos pelo hospital 2
+     */
     private Integer quantidadeMedicos2;
+    /**
+     * quantidade de enfermeiros oferecidos pelo hospital 2
+     */
     private Integer quantidaEnfermeiros2;
+    /**
+     * quantidade de respiradores oferecidos pelo hospital 2
+     */
     private Integer quantidadeRespiradores2;
+    /**
+     * quantidade de tomografos oferecidos pelo hospital 2
+     */
     private Integer quantidadeTomografos2;
+    /**
+     * quantidade de ambulancias oferecidos pelo hospital 2
+     */
     private Integer quantidadeAmbulancias2;
 
 

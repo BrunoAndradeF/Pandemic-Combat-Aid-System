@@ -11,6 +11,11 @@ import java.util.Map;
 public class RelatorioServiceImpl implements RelatorioService {
 
     @Override
+    /**
+     * calcula e retorna a porcentagem correspondente ao numero de hospitais super lotados(mais de 90% de ocupacao)
+     * @param hospitais colecao de relacoes entre cnpj do hospital cadastrado e seu percentual de ocupacap
+     * @return float equivalente a porcentagem de hospitais super-lotados
+     */
     public float calculaPorcentagemSuperLotados(Map<Long, Integer> hospitais) {
         float quantidadeSuperLotados = 0;
         for (Long cnpj : hospitais.keySet()) {
@@ -23,6 +28,11 @@ public class RelatorioServiceImpl implements RelatorioService {
     }
 
     @Override
+    /**
+     * calcula e retorna a porcentagem correspondente ao numero de hospitais não super lotados(menos de 90% de ocupacao)
+     * @param hospitais colecao de relacoes entre cnpj do hospital cadastrado e seu percentual de ocupacap
+     * @return float equivalente a porcentagem de hospitais que nao estao super-lotados
+     */
     public float calculaPorcentagemNaoSuperLotados(Map<Long, Integer> hospitais) {
         float quantidadeNaoSuperLotados = 0;
         for (Long cnpj : hospitais.keySet()) {
@@ -35,16 +45,25 @@ public class RelatorioServiceImpl implements RelatorioService {
     }
 
     @Override
+    /**
+     * NAO IMPLEMENTADO
+     */
     public Hospital getHospitalMaisTempoSuperLotado() {
         return null;
     }
 
     @Override
+    /**
+     * NAO IMPLEMENTADO
+     */
     public Hospital getHospitalMaisTempoNaoSuperLotado() {
         return null;
     }
 
     @Override
+    /**
+     * NAO IMPLEMENTADO
+     */
     public List<Hospital> getHistoricoNegociacao(long cnpj) {
         return null;
     }
