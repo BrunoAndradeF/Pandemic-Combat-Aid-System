@@ -28,7 +28,6 @@ public class RelatorioApiController {
     public ResponseEntity<?> porcentagemSuperLotados() {
         return new ResponseEntity<String>("porcentagem de hospitais com mais de 90%: "
                 + String.format("%.4f",relatorioService.calculaPorcentagemSuperLotados(hospitalService.listaOcupacoesHospitais())), HttpStatus.OK);
-//        return new ResponseEntity<String>(relatorioService.calculaPorcentagemSuperLotados(hospitalService.listaOcupacoesHospitais())), HttpStatus.OK);
     }
 
     @RequestMapping(value="/relatorio/nao-super-lotados", method = RequestMethod.GET)
